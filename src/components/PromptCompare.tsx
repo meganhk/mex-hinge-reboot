@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Prompt } from '../types.ts'
 import { User } from '../types.ts'
 
+
 interface WelcomeModalProps {
   onComplete: (userData: User) => void;
 }
@@ -43,12 +44,6 @@ function PromptCompare() {
       id: 5, 
       question: "Two truths and a lie",
       answer: "I kill mice for a living, I have a black belt in kickboxing, my favourite musical is Hamilton.",
-      type: 'prompt' as const
-    },
-    { 
-      id: 6, 
-      question: "The best way to ask me out is by",
-      answer: "Picking out a restaurant and making the reservation.",
       type: 'prompt' as const
     },
     { 
