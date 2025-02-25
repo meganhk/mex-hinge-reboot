@@ -1,13 +1,5 @@
 import { useState } from 'react'
-
-interface User {
-  id: string;
-  username?: string;
-  gender: 'male' | 'female' | 'other';
-  attractedTo: ('men' | 'women' | 'both')[];
-  comparisons: number;
-  lastActive: number;
-}
+import { User } from '../types'
 
 interface WelcomeModalProps {
   onComplete: (userData: User) => void;
@@ -30,8 +22,6 @@ function WelcomeModal({ onComplete }: WelcomeModalProps) {
             ...userData,
             id: crypto.randomUUID(),
             comparisons: 0,
-            photoComparisons: 0,
-            promptComparisons: 0,
             lastActive: Date.now(),
             gender: userData.gender!,
             attractedTo: userData.attractedTo!
@@ -53,10 +43,10 @@ function WelcomeModal({ onComplete }: WelcomeModalProps) {
                 <button
                   key={gender}
                   type="button"
-                  className={`p-2 rounded border ${
+                  className={`p-2.5 rounded-lg transition-colors duration-200 ${
                     userData.gender === gender 
-                      ? 'bg-blue-500 text-white border-blue-500' 
-                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                      ? 'bg-[#5b2b61] text-white hover:bg-[#5b2b61]' 
+                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-[#EADFD8]'
                   }`}
                   onClick={() => setUserData(prev => ({...prev, gender}))}
                 >
@@ -73,10 +63,10 @@ function WelcomeModal({ onComplete }: WelcomeModalProps) {
                 <button
                   key={option}
                   type="button"
-                  className={`p-2 rounded border ${
+                  className={`p-2.5 rounded-lg transition-colors duration-200 ${
                     userData.attractedTo?.[0] === option
-                      ? 'bg-blue-500 text-white border-blue-500'
-                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                      ? 'bg-[#5b2b61] text-white hover:bg-[#5b2b61]'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-[#EADFD8]'
                   }`}
                   onClick={() => setUserData(prev => ({
                     ...prev,
@@ -92,7 +82,8 @@ function WelcomeModal({ onComplete }: WelcomeModalProps) {
           <button
             type="submit"
             disabled={!userData.gender || !userData.attractedTo}
-            className="w-full bg-blue-500 text-white p-3 rounded font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600"
+            className="w-full p-2.5 rounded-lg bg-[#5b2b61] text-white transition-colors duration-200
+              disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#EADFD8]"
           >
             Start Rating
           </button>

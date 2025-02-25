@@ -7,6 +7,7 @@ import PromptCompare from './components/PromptCompare'
 import Analytics from './components/Analytics'
 import { User, VoteRecord } from './types.ts'
 import Contributors from './components/Contributors.tsx'
+import './index.css';
 
 function HomePage() {
   const [userData, setUserData] = useState<User | null>(null);
@@ -35,7 +36,7 @@ function HomePage() {
         <p className="text-xl md:text-xl text-gray-600 mb-4">
           Wanna help her set up a profile?
         </p>
-        
+
         <div className="flex flex-wrap justify-center gap-4">
   <Link to="/photo-compare" className="main-button">
     Compare My Photos
