@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { User } from '../types'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '../firebase.ts' 
 
 interface WelcomeModalProps {
   onComplete: (userData: User) => void;
@@ -10,6 +12,34 @@ function WelcomeModal({ onComplete }: WelcomeModalProps) {
     gender: undefined,
     attractedTo: undefined
   })
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    try {
+      // Create the complete user object
+      const completeUserData = {
+        ...userData,
+        id: crypto.randomUUID(),
+        comparisons: 0,
+        lastActive: Date.now(),
+        gender: userData.gender!,
+        attractedTo: userData.attractedTo!
+      } as User
+      
+      await setDoc(doc(rtdb, "users", completeUserData.id), completeUserData)
+      
+      // Then call the onComplete callback
+      onComplete(completeUserData)
+    } catch (error) {
+      console.error("Error saving user data to Firebase:", error)
+      // You might want to show an error message to the user here
+      setIsSubmitting(false)
+    }
+  }
   
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">

@@ -2,20 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { ref, onValue } from 'firebase/database'
 import { db } from '../firebase.ts'
 import { User } from '../types.ts'
-import { push, set } from 'firebase/database'
-
-// Function to save a response to Firebase
-export const saveResponse = (userId, message, metadata = {}) => {
-  const responsesRef = ref(db, 'responses')
-  const newResponseRef = push(responsesRef)
-  
-  return set(newResponseRef, {
-    userId,
-    message,
-    timestamp: Date.now(),
-    ...metadata
-  })
-}
 
 function Contributors() {
   const [users, setUsers] = useState<User[]>([])
